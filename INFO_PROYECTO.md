@@ -2,11 +2,12 @@
 
 **ID del Proyecto:** `proj_edustack`  
 **Esquema Supabase:** `mia_academy`  
-**Directorio Local:** `d:\PROYECTOS-APPs\EduStack-AI`  
+**Directorio Local:** `EduStack-AI`  
+**URL Producción (Vercel):** [https://sensaipro.vercel.app](https://sensaipro.vercel.app)  
 **Repositorio Remoto:** `https://github.com/Tonileblan/EduStack-AI.git`  
 **Carpeta Google Drive:** [1lWPlfQ3KtLijHklYE0O993J-HwQInjZW](https://drive.google.com/drive/folders/1lWPlfQ3KtLijHklYE0O993J-HwQInjZW)  
 **Fecha de Creación:** 2026-09-27  
-**Estado:** En Desarrollo (Fase 1: Andamiaje & Arquitectura)
+**Estado:** En Producción (Vercel) / Fase Activa
 
 ---
 

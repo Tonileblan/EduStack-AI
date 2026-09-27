@@ -1,0 +1,28 @@
+# DIRECTIVA DEL PROYECTO: EduStack-AI (Skillplate Clone)
+# ID: DIR-APP-2026-EDUSTACK
+# Versión: 1.0.0
+# Stack: React 19 + TypeScript + Vite + Supabase PostgreSQL (Schema: mia_academy) + Google Gemini 2.5 Flash
+
+## 1. Reglas Maestras de Arquitectura (Clean Architecture)
+- src/domain/ : Entidades de negocio, interfaces de repositorio y casos de uso puros sin dependencias externas.
+- src/data/ : Implementación de repositorios, clientes Supabase y Gemini, modelos DTO y persistencia.
+- src/presentation/ : Componentes React, hooks, estado global, vistas y UI.
+
+## 2. Pautas de Interfaz & Accesibilidad (Directivas Google Drive)
+- Medidas en rem con base 10px (html { font-size: 62.5%; }).
+- CERO diálogos nativos (prohibido alert, confirm, prompt). Todo feedback es visual en el DOM mediante Toasts/Modales accesibles.
+- Accesibilidad WCAG 2.1 AA: aria-label, roles semánticos, contrastes 4.5:1, áreas táctiles mínimo 48x48px.
+- Estética Dark Glassmorphism de alto impacto: fondos profundos (#0b0f19), bordes luminosos sutiles, micro-interacciones.
+
+## 3. Seguridad & Persistencia
+- Esquema Supabase dedicado: `mia_academy`.
+- Row Level Security (RLS) activado al 100% en todas las tablas.
+- Aislamiento multi-creador: `creator_id = auth.uid()`.
+- Estudiantes con acceso solo a lecciones y productos en los que tengan matrícula (`enrollments`).
+
+## 4. Módulos Funcionales (Paridad Skillplate)
+1. Generador de Cursos IA (Gemini 2.5 Flash con streaming).
+2. LMS Studio & Reproductor de Video HLS.
+3. 6 Tipos de Productos: Cursos, Comunidades, Coaching, Bundles, Membresías y Descargas Digitales.
+4. Checkout No-Code con soporte de cupones y Stripe.
+5. Quizzes, Exámenes y Certificados de Finalización.

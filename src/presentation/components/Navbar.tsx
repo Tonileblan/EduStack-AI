@@ -44,10 +44,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
         <div>
           <h1 style={{ fontSize: '1.9rem', margin: 0, fontWeight: 800, letterSpacing: '-0.03em' }}>
-            EduStack<span style={{ color: 'var(--primary-light)' }}>.AI</span>
+            Sens<span style={{ color: 'var(--primary-light)' }}>AI</span>
           </h1>
           <span style={{ fontSize: '1.1rem', color: 'var(--text-muted)', letterSpacing: '0.04em' }}>
-            SKILLPLATE CLONE & CREATOR LMS
+            AI CREATOR LMS & ACADEMY PLATFORM
           </span>
         </div>
       </div>

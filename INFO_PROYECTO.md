@@ -1,6 +1,6 @@
-# 🎓 EduStack-AI (Skillplate Clone & LMS Creator Platform)
+# 🎓 SensAI Pro (LMS Creator & AI Academy Platform)
 
-**ID del Proyecto:** `proj_edustack`  
+**ID del Proyecto:** `proj_sensai`  
 **Esquema Supabase:** `mia_academy`  
 **Directorio Local:** `EduStack-AI`  
 **URL Producción (Vercel):** [https://sensaipro.vercel.app](https://sensaipro.vercel.app)  
@@ -13,9 +13,9 @@
 
 ## 🚀 Resumen Ejecutivo
 
-**EduStack-AI** es una plataforma SaaS All-in-One de monetización para creadores de contenido, educadores, consultores y academias digitales. Inspirada en el benchmark de **Skillplate.com**, combina:
+**SensAI** es una plataforma SaaS All-in-One de monetización para creadores de contenido, educadores, consultores y academias digitales. Combina:
 
-1. **Generación Inteligente de Cursos por IA (Overmind Engine)** con modelos Gemini 2.5 Flash con streaming.
+1. **Generación Inteligente de Cursos por IA (SensAI Engine)** con modelos Gemini 2.5 Flash con streaming.
 2. **LMS Moderno & Reproductor Adaptativo** con tracking de progreso y soporte HLS.
 3. **6 Tipos de Productos Nativos:**
    - 📚 Cursos Online (módulos, lecciones, video, texto, descargas).
@@ -67,7 +67,7 @@ src/
 
 ## 🔒 Cumplimiento de Directivas Maestras
 
-| Directiva | Implementación en EduStack-AI |
+| Directiva | Implementación en SensAI Pro |
 | :--- | :--- |
 | **Clean Architecture** | Separación estricta en 3 capas (`domain`, `data`, `presentation`). |
 | **Zero Native Dialogs** | Prohibido `alert()`, `confirm()`, `prompt()`. Toasts accesibles con `aria-live`. |

@@ -19,7 +19,7 @@ export const AICourseGeneratorModal: React.FC<AICourseGeneratorModalProps> = ({
   const [audience, setAudience] = useState('');
   const [depthLevel, setDepthLevel] = useState<'beginner' | 'intermediate' | 'advanced' | 'masterclass'>('masterclass');
   const [modulesCount, setModulesCount] = useState(4);
-  const [apiKey, setApiKey] = useState(localStorage.getItem('edustack_gemini_key') || '');
+  const [apiKey, setApiKey] = useState(localStorage.getItem('sensai_gemini_key') || '');
   const [includeQuizzes, setIncludeQuizzes] = useState(true);
   
   const [isGenerating, setIsGenerating] = useState(false);
@@ -35,7 +35,7 @@ export const AICourseGeneratorModal: React.FC<AICourseGeneratorModalProps> = ({
     }
 
     if (apiKey) {
-      localStorage.setItem('edustack_gemini_key', apiKey);
+      localStorage.setItem('sensai_gemini_key', apiKey);
     }
 
     setIsGenerating(true);
@@ -130,7 +130,7 @@ export const AICourseGeneratorModal: React.FC<AICourseGeneratorModalProps> = ({
             </div>
             <div>
               <h3 style={{ margin: 0, fontSize: '1.9rem', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-                Overmind AI Course Generator
+                SensAI Course Generator
                 <span className="badge-tag badge-purple">Gemini 2.5 Flash</span>
               </h3>
               <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '1.3rem' }}>

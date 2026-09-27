@@ -1,9 +1,11 @@
 import React from 'react';
-import { GraduationCap, Sparkles, LayoutDashboard, PlaySquare, ShoppingBag } from 'lucide-react';
+import { GraduationCap, Sparkles, LayoutDashboard, PlaySquare, ShoppingBag, Bot } from 'lucide-react';
+
+export type AppView = 'dashboard' | 'agentStudio' | 'lms' | 'checkout';
 
 interface NavbarProps {
-  currentView: 'dashboard' | 'lms' | 'checkout';
-  setCurrentView: (view: 'dashboard' | 'lms' | 'checkout') => void;
+  currentView: AppView;
+  setCurrentView: (view: AppView) => void;
   onOpenAIGenerator: () => void;
 }
 
@@ -26,7 +28,10 @@ export const Navbar: React.FC<NavbarProps> = ({
       }}
     >
       {/* Brand */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+      <div
+        onClick={() => setCurrentView('dashboard')}
+        style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', cursor: 'pointer' }}
+      >
         <div
           style={{
             width: '3.8rem',
@@ -47,7 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             Sens<span style={{ color: 'var(--primary-light)' }}>AI</span>
           </h1>
           <span style={{ fontSize: '1.1rem', color: 'var(--text-muted)', letterSpacing: '0.04em' }}>
-            AI CREATOR LMS & ACADEMY PLATFORM
+            AI CREATOR LMS & AGENTIC STUDIO
           </span>
         </div>
       </div>
@@ -61,6 +66,22 @@ export const Navbar: React.FC<NavbarProps> = ({
         >
           <LayoutDashboard size={16} />
           Creator Studio
+        </button>
+
+        <button
+          className={currentView === 'agentStudio' ? 'btn-primary' : 'btn-secondary'}
+          onClick={() => setCurrentView('agentStudio')}
+          style={{
+            padding: '0.8rem 1.6rem',
+            fontSize: '1.35rem',
+            background: currentView === 'agentStudio' ? 'linear-gradient(135deg, #6366f1, #a855f7)' : 'rgba(99, 102, 241, 0.12)',
+            border: currentView === 'agentStudio' ? 'none' : '1px solid rgba(99, 102, 241, 0.3)',
+            color: currentView === 'agentStudio' ? '#ffffff' : '#c084fc',
+            fontWeight: 700
+          }}
+        >
+          <Bot size={16} />
+          Studio Agéntico 360°
         </button>
 
         <button
@@ -82,11 +103,11 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
       </nav>
 
-      {/* AI Wizard Action */}
+      {/* AI Quick Generator Button */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
         <button className="btn-ai-glow" onClick={onOpenAIGenerator}>
           <Sparkles size={16} />
-          <span>Generar con IA</span>
+          <span>Generar Rápido</span>
         </button>
       </div>
     </header>

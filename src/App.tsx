@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { ToastProvider, useToast } from './presentation/context/ToastContext';
-import { Navbar } from './presentation/components/Navbar';
+import { Navbar, type AppView } from './presentation/components/Navbar';
 import { CreatorDashboard } from './presentation/views/CreatorDashboard';
 import { AICourseGeneratorModal } from './presentation/views/AICourseGeneratorModal';
 import { LMSViewer } from './presentation/views/LMSViewer';
 import { PublicCheckout } from './presentation/views/PublicCheckout';
+import { SensAIAgentStudio } from './presentation/views/SensAIAgentStudio';
 import type { Product, CourseModule } from './domain/entities/Product';
 import type { GeneratedCoursePlan } from './data/sources/geminiClient';
+import type { FullAgenticCourseResult } from './domain/entities/AgenticContent';
 
 // Seed Initial Products
 const INITIAL_PRODUCTS: Product[] = [
@@ -147,7 +149,7 @@ const INITIAL_MODULES: CourseModule[] = [
 
 function MainAppContent() {
   const { showToast } = useToast();
-  const [currentView, setCurrentView] = useState<'dashboard' | 'lms' | 'checkout'>('dashboard');
+  const [currentView, setCurrentView] = useState<AppView>('dashboard');
   const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
   const [modules, setModules] = useState<CourseModule[]>(INITIAL_MODULES);
   const [selectedProduct, setSelectedProduct] = useState<Product>(INITIAL_PRODUCTS[0]);
@@ -196,6 +198,54 @@ function MainAppContent() {
     showToast(`¡Curso "${plan.title}" añadido al Creator Studio!`, 'success');
   };
 
+  const handleApplyAgenticCourse = (res: FullAgenticCourseResult) => {
+    const newProduct: Product = {
+      id: `prod_agentic_${Date.now()}`,
+      creatorId: 'user_toni',
+      productType: 'course',
+      title: res.courseInfo.title,
+      slug: res.courseInfo.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+      tagline: res.courseInfo.tagline,
+      description: res.courseInfo.description,
+      thumbnailUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=60',
+      priceCents: res.courseInfo.suggestedPriceEur * 100,
+      currency: 'EUR',
+      isSubscription: false,
+      status: 'published',
+      aiGenerated: true,
+      metaJson: {
+        marketingKit: res.marketingKit,
+        qaScore: res.qaEvaluation.score
+      },
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    const newModules: CourseModule[] = res.modules.map((m, mIdx) => ({
+      id: m.id || `mod_ag_${Date.now()}_${mIdx}`,
+      productId: newProduct.id,
+      title: m.title,
+      description: m.description,
+      orderIndex: mIdx + 1,
+      lessons: m.lessons.map((l, lIdx) => ({
+        id: l.id || `les_ag_${Date.now()}_${mIdx}_${lIdx}`,
+        moduleId: m.id,
+        title: l.title,
+        contentType: l.contentType,
+        videoDurationSeconds: l.durationMinutes * 60,
+        isFreePreview: lIdx === 0,
+        orderIndex: lIdx + 1,
+        bodyMarkdown: l.artifacts.fullGuideMarkdown
+      }))
+    }));
+
+    setProducts([newProduct, ...products]);
+    setSelectedProduct(newProduct);
+    setModules(newModules);
+    setCurrentView('lms');
+    showToast(`¡Curso Agéntico 360° "${res.courseInfo.title}" importado y listo en el LMS!`, 'success');
+  };
+
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar
@@ -217,6 +267,13 @@ function MainAppContent() {
               setSelectedProduct(p);
               setCurrentView('checkout');
             }}
+          />
+        )}
+
+        {currentView === 'agentStudio' && (
+          <SensAIAgentStudio
+            onApplyCourseToStudio={handleApplyAgenticCourse}
+            onBackToDashboard={() => setCurrentView('dashboard')}
           />
         )}
 
